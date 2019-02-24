@@ -490,12 +490,12 @@
     </div>
     <div class="status-popup popup fancybox-content" id="success" style="max-width: 480px">
       <div class="status-popup__inner">
-        <div class="status-popup__message">Сообщение отправлено</div><a class="status-popup__close btn" href="#">Закрыть</a>
+        <div class="status-popup__message">Сообщение отправлено</div><a class="status-popup__close btn" onclick="$.fancybox.close()" href="javascript:void(0)">Закрыть</a>
       </div>
     </div>
     <div class="status-popup popup" id="error">
       <div class="status-popup__inner">
-        <div class="status-popup__message error-message">Произошла ошибка</div><a class="status-popup__close btn" href="#">Закрыть</a>
+        <div class="status-popup__message error-message">Произошла ошибка</div><a class="status-popup__close btn"  onclick="$.fancybox.close()" href="javascript:void(0)">Закрыть</a>
       </div>
     </div>
     <script src="./js/vendors.min.js"></script>
