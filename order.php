@@ -8,8 +8,8 @@ $userEmail = trim($_POST['email']);
 $userAddress = 'Улица: ' . trim($_POST['street']) . ' Дом: ' . trim($_POST['home']) . ' Корпус: '
     . trim($_POST['part']) . ' Квартира: ' . trim($_POST['appt']) . ' Этаж: ' . trim($_POST['floor']);
 $comment = trim($_POST['comment']);
-$payment = $_POST['payment'] || false;
-$callback = $_POST['callback'] || false;
+$payment = !empty($_POST['payment']) || false;
+$callback = !empty($_POST['callback']) || false;
 $error = '';
 $userId = '';
 if (empty($userName) && isset($userName)) {
