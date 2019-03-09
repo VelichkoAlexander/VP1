@@ -1,5 +1,5 @@
 <?php
-
+require './vendor/autoload.php';
 function connect()
 {
     $host = 'localhost';
@@ -30,7 +30,7 @@ function createOrder($user_id, $address, $comment, $no_call, $card)
 }
 
 
-function sendOrderMail($orderId, $db)
+function sendOrderMail($orderId)
 {
     $db = connect();
     $order = 'SELECT orders.address, orders.user_id, users.email
@@ -62,13 +62,33 @@ function sendOrderMail($orderId, $db)
 </body>
 </html>
 ";
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= 'From: <webmaster@example.com>' . "\r\n";
-    if (mail($data['email'], "Order", $message)) {
-        echo json_encode(['success' => true]);
-        die;
-    };
+    try {
+        $transport = (new Swift_SmtpTransport(' smtp.mail.ru', 465, 'ssl'))
+            ->setUsername('')
+            ->setPassword('');
+// Create the Mailer using your created Transport
+        $mailer = new Swift_Mailer($transport);
+// Create a message
+        $message = (new Swift_Message('Order'))
+            ->setFrom(['loftschool.phpmailtest@mail.ru' => 'loftschool.phpmailtest@mail.ru'])
+            ->setTo([$data['email']])
+            ->setBody($message);
+// Send the message
+        $result = $mailer->send($message);
+        var_dump(['res' => $result]);
+    } catch (Exception $e) {
+        json_encode(['error' => $e->getMessage()]);
+    }
+    echo json_encode(['success' => true]);
+    die;
+
+//    $headers = "MIME-Version: 1.0" . "\r\n";
+//    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+//    $headers .= 'From: <webmaster@example.com>' . "\r\n";
+//    if (mail($data['email'], "Order", $message)) {
+//        echo json_encode(['success' => true]);
+//        die;
+//    };
 }
 
 function countOrders($userId, $db)
