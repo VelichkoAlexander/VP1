@@ -1,0 +1,52 @@
+{% include './layout/header.twig' %}
+<div class="container">
+    <h1 class="text-center"> Админ панель</h1>
+    <h2 class="text-center">Users</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>email</th>
+            <th>name</th>
+            <th>phone</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in usersData %}
+            <tr>
+                <td>{{ user['id'] }}</td>
+                <td>{{ user['email'] }}</td>
+                <td>{{ user['name'] }}</td>
+                <td>{{ user['phone'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2 class="text-center">Orders</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>user_id</th>
+            <th>address</th>
+            <th>comment</th>
+            <th>card</th>
+            <th>no_call</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in ordersData %}
+            <tr>
+                <td>{{ order['id'] }}</td>
+                <td>{{ order['user_id'] }}</td>
+                <td>{{ order['address'] }}</td>
+                <td>{{ order['comment'] }}</td>
+                <td> {{ order['card'] }}</td>
+                <td> {{ order['no_call'] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include'./layout/footer.twig' %}
